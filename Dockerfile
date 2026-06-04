@@ -23,6 +23,7 @@ ENV PORT=8080
 ENV STREAMLIT_SERVER_PORT=8080
 ENV STREAMLIT_SERVER_ADDRESS=0.0.0.0
 ENV STREAMLIT_SERVER_HEADLESS=1
+ENV OLLAMA_HOST=0.0.0.0:11434
 
-# Run Streamlit
-CMD ["streamlit", "run", "app_ui.py", "--server.address=0.0.0.0", "--server.port=8080"]
+# Start Ollama in background and then run Streamlit
+CMD ["sh", "-c", "ollama serve & sleep 10 && ollama pull llama3.2 && streamlit run app_ui.py --server.address=0.0.0.0 --server.port=8080"]
